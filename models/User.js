@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
+  //bch nraka7 schema mta3 utilisateur
   nom: { type: String },
   login: { type: String, required: true, unique: true },
   password: { type: String, required: true },

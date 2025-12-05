@@ -14,21 +14,21 @@ const auth = require("../middlewares/authMiddleware");
 const manager = require("../middlewares/managerMiddleware");
 
 // CREATE
-router.post("/", auth, createTask);
+router.post("/", auth, createTask); //bch nasna3 tache
 
 // GET all + filters
-router.get("/", auth, getTasks);
+router.get("/", auth, getTasks); //bch namll récupérationn ll taches lkoll
 
 // GET one
-router.get("/:id", auth, getTask);
+router.get("/:id", auth, getTask); //bch na3mll récupération ll tache spécifique
 
 // UPDATE
-router.put("/:id", auth, updateTask);
+router.put("/:id", auth, updateTask);// bch na3ml modificationn ll taches
 
 // DELETE
-router.delete("/:id", auth, deleteTask);
+router.delete("/:id", auth, deleteTask); //bch nsupprimie tache
 
 // ASSIGN TASK (ONLY MANAGER)
-router.put("/:id/assign", auth, manager, assignTask);
+router.put("/:id/assign", auth, manager, assignTask); //lahne assign tache manager
 
 module.exports = router;

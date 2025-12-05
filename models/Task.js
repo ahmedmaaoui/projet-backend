@@ -1,5 +1,6 @@
 
 const mongoose = require("mongoose");
+//lahne bch na3mll schema ll taches 
 
 const taskSchema = new mongoose.Schema({
   titre: { type: String, required: true },
