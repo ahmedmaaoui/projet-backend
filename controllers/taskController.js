@@ -1,14 +1,15 @@
 const Task = require("../models/Task");
 
-// CREATE TASK
+// Creation TASK
 exports.createTask = async (req, res) => {
   try {
+    // na3mloo task jdid b données jeya ml body
     const task = await Task.create({
       titre: req.body.titre,
       description: req.body.description,
       statut: req.body.statut,
       deadline: req.body.deadline,
-      projet: req.body.projet,
+      projet: req.body.projet,  //lezm ykon marboot b projet
     });
 
     res.json(task);
@@ -17,18 +18,22 @@ exports.createTask = async (req, res) => {
   }
 };
 
-// GET ALL TASKS (with filters)
+// na3mloo récupérationn les tasks lkoll b filtrages
 exports.getTasks = async (req, res) => {
   try {
     const { statut, sort } = req.query;
 
     let filter = {};
-    if (statut) filter.statut = statut; // filter by status
+
+    // si user 7at statut -> nfiltrow alih
+    if (statut) filter.statut = statut;
 
     let query = Task.find(filter);
 
-    if (sort) query = query.sort(sort); // sort by deadline or createdAt
+    // tri selon createdAt ou deadline
+    if (sort) query = query.sort(sort);
 
+    // populate -> nraj3ou les infos mtaa projet w user assigné
     const tasks = await query.populate("projet").populate("assignedTo", "nom");
 
     res.json(tasks);
@@ -37,7 +42,7 @@ exports.getTasks = async (req, res) => {
   }
 };
 
-// GET ONE TASK
+// na3mll récupere l task wa7ed spécifique
 exports.getTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id)
@@ -50,7 +55,7 @@ exports.getTask = async (req, res) => {
   }
 };
 
-// UPDATE TASK
+// na3mlooo modification
 exports.updateTask = async (req, res) => {
   try {
     const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
@@ -63,7 +68,7 @@ exports.updateTask = async (req, res) => {
   }
 };
 
-// DELETE TASK
+// najmoo na3mloo supprime l task
 exports.deleteTask = async (req, res) => {
   try {
     await Task.findByIdAndDelete(req.params.id);
@@ -72,10 +77,10 @@ exports.deleteTask = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
-// ASSIGN TASK (MANAGER ONLY)
+//assign task selo manager
 exports.assignTask = async (req, res) => {
   try {
+    // nbaddlou user assigné ll task (ken manager)
     const task = await Task.findByIdAndUpdate(
       req.params.id,
       { assignedTo: req.body.userId },
